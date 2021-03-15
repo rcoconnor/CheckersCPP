@@ -3,8 +3,6 @@
 #include "Bitboard.h"
 #include "Gameboard.h"
 
-// temporary
-#include <stdio.h>
 
 
 using namespace std; 
