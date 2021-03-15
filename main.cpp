@@ -6,29 +6,52 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
+#include <allegro5/allegro_image.h>
 
 using namespace std; 
 
 int main(int argc, char** argv) {
     al_init();  
-    al_init_font_addon(); 
-    al_init_ttf_addon(); 
+    al_init_image_addon(); 
 
-    ALLEGRO_DISPLAY * display = al_create_display(640, 480);  
-    ALLEGRO_FONT * font = al_load_ttf_font("GUEVARA_.ttf", 64, 0); 
+    ALLEGRO_DISPLAY * display = al_create_display(640, 480); ;
+    ALLEGRO_EVENT_QUEUE * queue = al_create_event_queue(); 
+    ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0); // 60 frames per second 
 
+    ALLEGRO_BITMAP * bitmap = NULL; 
+
+
+    al_install_keyboard();
+    al_register_event_source(queue, al_get_keyboard_event_source());
+    al_register_event_source(queue, al_get_display_event_source(display)); 
+    al_register_event_source(queue, al_get_timer_event_source(timer)); 
+    
+    bitmap = al_load_bitmap("image.png"); assert(bitmap != NULL); 
+    
+    bool running = true; 
+    
+    while (running) {
+        al_clear_to_color(al_map_rgba_f(1, 1, 1, 1)); 
+
+        al_draw_bitmap(bitmap, 0, 0, 0);      
+        al_flip_display();
+        ALLEGRO_EVENT event; 
+        al_wait_for_event(queue, &event); 
+        if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+            running = false; 
+        } 
+        
+
+
+    }
+    
+    al_destroy_display(display); 
+    al_uninstall_keyboard(); 
+    
     std::cout << "Hello world!" << std::endl; 
 
-    //Gameboard board = Gameboard();  
-    //board.printBoard();
-
-    while (true) {
-        al_clear_to_color(al_map_rgb(255, 255, 255)); 
-        al_draw_text(font, al_map_rgb(0, 0, 0), 0, 0, 0, "Hello world"); 
-        al_flip_display(); 
-    }
-
-
+    Gameboard board = Gameboard();  
+    board.printBoard();
     return 0; 
 }
 
