@@ -1,7 +1,7 @@
 
 
 checkers: main.o Bitboard.o 
-	g++ main.o Bitboard.o GameBoard.o -Wall -o checkers -lallegro -lallegro_main
+	g++ main.o Bitboard.o GameBoard.o -Wall -o checkers -lallegro -lallegro_main -lallegro_font -lallegro_ttf
 
 main.o: main.cpp Bitboard.o GameBoard.o  
 	g++ main.cpp -Wall -c 
