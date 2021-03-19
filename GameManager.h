@@ -16,10 +16,10 @@ class GameManager {
         ALLEGRO_DISPLAY * display;  
         ALLEGRO_EVENT_QUEUE * queue;
         ALLEGRO_TIMER* timer;  
-
+        ALLEGRO_BITMAP* buffer; 
 
         SpriteManager spriteManager; 
-
+        
     public: 
         GameManager();
         ~GameManager(); 

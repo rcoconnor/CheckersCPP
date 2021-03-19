@@ -24,11 +24,15 @@ void GameManager::init() {
     al_init_image_addon();
    
     spriteManager.init();
+    
 
     display = al_create_display(WINDOW_WIDTH, WINDOW_HEIGHT);
     queue = al_create_event_queue(); 
-    timer = al_create_timer(1.0 / 60.0); 
-    
+    timer = al_create_timer(1.0 / 60.0);
+   
+    // fixme: have game write to buffer first //  
+    buffer = al_create_bitmap(WINDOW_WIDTH, WINDOW_HEIGHT);
+
     al_install_keyboard();
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_display_event_source(display)); 
@@ -42,11 +46,10 @@ void GameManager::startGame(){
     bool running = true; 
     //std::cout << "Light: " << std::setfill('0') << std::setw(64) << std::bitset<64>(Bitboard::LIGHT_SQUARES) << std::endl;   
     //std::cout << "Dark : " << std::setfill('0') << std::setw(64) << std::bitset<64>(Bitboard::RED_SQUARES) << std::endl;   
-
+    al_start_timer(timer);
     while (running) {
         al_clear_to_color(al_map_rgba_f(0, 0, 0, 1)); 
         //x += 0.1; 
-
         //al_draw_bitmap_region(spriteManager.getSquare(), 0, 0, 32,32, 0, 0, 0);      
         al_draw_bitmap(spriteManager.getGameBoard(), 0, 0, 0);  
         SpriteManager::drawSpriteOnBoard(spriteManager.getDarkPiece(), board.getRedPieces());  
@@ -54,6 +57,7 @@ void GameManager::startGame(){
         ALLEGRO_EVENT event; 
         al_wait_for_event(queue, &event); 
         if (event.type == ALLEGRO_EVENT_TIMER) {
+            std::cout << "timer ending" << std::endl;  
             al_flip_display();
         }
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {

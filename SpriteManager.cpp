@@ -50,7 +50,6 @@ void SpriteManager::init() {
                 32),
             64, 
             64);  
-
 }
 
 /* draws the sprites in the positions given by board_state to the current target */ 
@@ -78,14 +77,14 @@ SpriteManager::SpriteManager() {
 
 
 SpriteManager::~SpriteManager() {
-    al_destroy_bitmap(square);  
     al_destroy_bitmap(darkSquare);  
     al_destroy_bitmap(lightSquare);  
     al_destroy_bitmap(gameBoard);  
+    al_destroy_bitmap(square);  
     
-    al_destroy_bitmap(pieces);  
-    al_destroy_bitmap(darkPiece); 
     al_destroy_bitmap(lightPiece); 
+    al_destroy_bitmap(darkPiece); 
+    al_destroy_bitmap(pieces);  
     return;
 }
 
