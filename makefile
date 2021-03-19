@@ -1,13 +1,16 @@
 
 
-checkers: main.o Bitboard.o SpriteManager.o 
-	g++ main.o Bitboard.o GameBoard.o SpriteManager.o -Wall -o checkers -lallegro -lallegro_main -lallegro_image -lallegro_font -lallegro_ttf
+checkers: main.o Bitboard.o SpriteManager.o Gameboard.o GameManager.o 
+	g++ main.o Bitboard.o GameBoard.o GameManager.o SpriteManager.o -Wall -o checkers -lallegro -lallegro_main -lallegro_image -lallegro_font -lallegro_ttf
 
-main.o: main.cpp Bitboard.o GameBoard.o SpriteManager.o   
+main.o: main.cpp Bitboard.o Gameboard.o SpriteManager.o GameManager.o 
 	g++ main.cpp -Wall -c 
 
 
-GameBoard.o: GameBoard.cpp GameBoard.h Bitboard.o
+GameManager.o: GameManager.cpp GameManager.h  GameBoard.o 
+	g++ GameManager.cpp -Wall -c 
+
+Gameboard.o: Gameboard.cpp Gameboard.h Bitboard.o
 	g++ GameBoard.cpp -Wall -c 	
 
 Bitboard.o: Bitboard.cpp Bitboard.h

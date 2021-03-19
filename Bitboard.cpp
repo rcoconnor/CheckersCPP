@@ -28,6 +28,9 @@ uint64_t Bitboard::ClearRank[8] = {
     0x00FFFFFFFFFFFFFF
 }; 
 
+uint64_t Bitboard::RED_SQUARES = 0xaa55aa55aa55aa55; 
+uint64_t Bitboard::LIGHT_SQUARES = 0xaa55aa55aa55aa55; 
+
 
 uint64_t Bitboard::ClearFile[8] = {
     0xFEFEFEFEFEFEFEFE,

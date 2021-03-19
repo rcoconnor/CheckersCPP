@@ -44,6 +44,9 @@ class Bitboard {
 
     static uint64_t Piece[64]; 
 
+    static uint64_t RED_SQUARES;  
+    static uint64_t LIGHT_SQUARES;        
+
 }; 
 
 
