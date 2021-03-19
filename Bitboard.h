@@ -35,6 +35,8 @@ class Bitboard {
     public: 
     Bitboard();
     Bitboard(uint64_t);  
+    ~Bitboard();
+
     uint64_t getBoard(); 
 
     static uint64_t ClearRank[8];  

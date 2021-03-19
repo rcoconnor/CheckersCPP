@@ -6,14 +6,14 @@
 //using namespace std; 
 
 int main(int argc, char** argv) {
-    std::cout << "creating game manager" << std::endl; 
+    //std::cout << "creating game manager" << std::endl; 
     GameManager manager = GameManager();
     manager.init(); 
     
-    std::cout << "calling start game" << std::endl;
+    //std::cout << "calling start game" << std::endl;
     manager.startGame(); 
     
-    std::cout << "Hello world!" << std::endl; 
+    //std::cout << "Hello world!" << std::endl; 
 
     return 0; 
 }

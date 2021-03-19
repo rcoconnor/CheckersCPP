@@ -9,7 +9,8 @@ class Gameboard {
         Bitboard blackPieces; 
     public:
         Gameboard();
-        void printBoard(); 
+        void printBoard();
+        uint64_t getRedPieces();
 };
 
 #endif

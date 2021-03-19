@@ -8,6 +8,11 @@ Gameboard::Gameboard() {
     blackPieces = 0xaa55aa0000000000;  
 }
 
+uint64_t Gameboard::getRedPieces() {
+    return redPieces.getBoard(); 
+}
+
+
 
 /* static helper function, prints the board*/ 
 void Gameboard::printBoard() {

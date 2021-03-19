@@ -27,7 +27,7 @@ class GameManager {
         void init();
         void startGame();  
         ALLEGRO_EVENT_QUEUE* getQueue(); 
-        void drawBitmapToBoard(ALLEGRO_BITMAP* bmp, uint64_t board); 
+        //void drawBitmapToBoard(ALLEGRO_BITMAP* bmp, uint64_t board); 
 
         static int WINDOW_WIDTH;
         static int WINDOW_HEIGHT;

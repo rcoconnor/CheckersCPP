@@ -8,10 +8,15 @@
 
 class SpriteManager {
 private: 
-    ALLEGRO_BITMAP* pieces; 
     ALLEGRO_BITMAP* square; 
     ALLEGRO_BITMAP* darkSquare; 
     ALLEGRO_BITMAP* lightSquare; 
+    ALLEGRO_BITMAP* gameBoard; 
+    
+    ALLEGRO_BITMAP* pieces; 
+    ALLEGRO_BITMAP* darkPiece;
+    ALLEGRO_BITMAP* lightPiece; 
+
 public: 
     SpriteManager(); 
     ~SpriteManager();  
@@ -20,10 +25,17 @@ public:
 
     ALLEGRO_BITMAP* getPiece(); 
     ALLEGRO_BITMAP* getSquare(); 
-
+    
+    ALLEGRO_BITMAP* getGameBoard(); 
     ALLEGRO_BITMAP* getDarkSquare(); 
     ALLEGRO_BITMAP* getLightSquare();
+    
+    ALLEGRO_BITMAP* getDarkPiece(); 
+    ALLEGRO_BITMAP* getLightPiece(); 
+
     static int SQUARE_HEIGHT; 
+
+   static void drawSpriteOnBoard(ALLEGRO_BITMAP* sprite, uint64_t board_state); 
 };
 
 
