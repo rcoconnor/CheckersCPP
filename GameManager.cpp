@@ -53,11 +53,9 @@ void GameManager::startGame(){
         //al_draw_bitmap_region(spriteManager.getSquare(), 0, 0, 32,32, 0, 0, 0);      
         al_draw_bitmap(spriteManager.getGameBoard(), 0, 0, 0);  
         SpriteManager::drawSpriteOnBoard(spriteManager.getDarkPiece(), board.getRedPieces());  
-        al_flip_display();
         ALLEGRO_EVENT event; 
         al_wait_for_event(queue, &event); 
         if (event.type == ALLEGRO_EVENT_TIMER) {
-            std::cout << "timer ending" << std::endl;  
             al_flip_display();
         }
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
