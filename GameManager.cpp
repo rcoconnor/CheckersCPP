@@ -64,7 +64,7 @@ void GameManager::startGame(){
             else if (index == 1) { drawBitboardToScreen(Bitboard::Piece[A3]); index++; }
             else if (index == 2) { 
                 drawBitboardToScreen(
-                    Gameboard::ComputePieceValidMoves(
+                    Gameboard::ComputeBlackPieceValidMoves(
                         Bitboard::Piece[A3], 
                         board.getBlackPieces()
                     )

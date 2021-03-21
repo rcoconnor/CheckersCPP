@@ -17,7 +17,7 @@ uint64_t Gameboard::getBlackPieces() {
 }
 
 
-uint64_t Gameboard::ComputePieceValidMoves(uint64_t pieceLocation, uint64_t ownSide){
+uint64_t Gameboard::ComputeBlackPieceValidMoves(uint64_t pieceLocation, uint64_t ownSide){
     std::cout << "Gameboard::ComputePieceValidMoves called" << std::endl;  
     uint64_t clipFileH = pieceLocation & Bitboard::ClearFile[FILE_H];
     uint64_t clipFileA = pieceLocation & Bitboard::ClearFile[FILE_A]; 
@@ -25,7 +25,8 @@ uint64_t Gameboard::ComputePieceValidMoves(uint64_t pieceLocation, uint64_t ownS
     uint64_t spotLeft = clipFileA << 7; 
     uint64_t spotRight = clipFileH << 9; 
 
-    uint64_t validMoves = spotLeft | spotRight; 
+    uint64_t pieceMoves = spotLeft | spotRight; 
+    uint64_t validMoves = pieceMoves & ~ownSide; 
     return validMoves; 
 }; 
 
