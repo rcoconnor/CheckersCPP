@@ -18,7 +18,8 @@ class GameManager {
         ALLEGRO_TIMER* timer;  
         ALLEGRO_BITMAP* buffer; 
 
-        SpriteManager spriteManager; 
+        SpriteManager spriteManager;
+        void drawBitboardToScreen(uint64_t board); 
         
     public: 
         GameManager();
@@ -28,6 +29,8 @@ class GameManager {
         void startGame();  
         ALLEGRO_EVENT_QUEUE* getQueue(); 
         //void drawBitmapToBoard(ALLEGRO_BITMAP* bmp, uint64_t board); 
+
+        void drawBoardStateToScreen(ALLEGRO_BITMAP* target);
 
         static int WINDOW_WIDTH;
         static int WINDOW_HEIGHT;

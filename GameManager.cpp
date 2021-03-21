@@ -41,28 +41,65 @@ void GameManager::init() {
     //std::cout << "--------init done--------" << std::endl; 
 } 
 
+
 // start a game of checkers  
 void GameManager::startGame(){
     bool running = true; 
     //std::cout << "Light: " << std::setfill('0') << std::setw(64) << std::bitset<64>(Bitboard::LIGHT_SQUARES) << std::endl;   
     //std::cout << "Dark : " << std::setfill('0') << std::setw(64) << std::bitset<64>(Bitboard::RED_SQUARES) << std::endl;   
     al_start_timer(timer);
+    //int index = 0; 
+    FILES curFile = FILE_A; 
+    int index = 0;  
     while (running) {
-        al_clear_to_color(al_map_rgba_f(0, 0, 0, 1)); 
-        //x += 0.1; 
-        //al_draw_bitmap_region(spriteManager.getSquare(), 0, 0, 32,32, 0, 0, 0);      
-        al_draw_bitmap(spriteManager.getGameBoard(), 0, 0, 0);  
-        SpriteManager::drawSpriteOnBoard(spriteManager.getDarkPiece(), board.getRedPieces());  
         ALLEGRO_EVENT event; 
-        al_wait_for_event(queue, &event); 
-        if (event.type == ALLEGRO_EVENT_TIMER) {
+        al_wait_for_event(queue, &event);
+        /*if (event.type == ALLEGRO_EVENT_TIMER) {
+            drawBoardStateToScreen(al_get_target_bitmap());  
             al_flip_display();
+        }*/ 
+        if(event.type == ALLEGRO_EVENT_KEY_DOWN) {
+            //drawBitboardToScreen(Bitboard::ClearFile[curFile]);
+            if(index == 0){ drawBoardStateToScreen(al_get_target_bitmap()); index++; }
+            else if (index == 1) { drawBitboardToScreen(Bitboard::Piece[A3]); index++; }
+            else if (index == 2) { 
+                drawBitboardToScreen(
+                    Gameboard::ComputePieceValidMoves(
+                        Bitboard::Piece[A3], 
+                        board.getBlackPieces()
+                    )
+                ); 
+            }
+            al_flip_display(); 
+            curFile = (FILES)((int)curFile+1); 
+            //index++;
         }
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             running = false; 
         }
     }
 }; 
+
+// Debug function to allow visualizing of bitboards
+// prints a bitboard to the screen 
+void GameManager::drawBitboardToScreen(uint64_t board) {
+    al_clear_to_color(al_map_rgba_f(255, 255, 255, 1)); 
+    al_draw_bitmap(spriteManager.getGameBoard(), 0, 0, 0); 
+    SpriteManager::drawSpriteOnBoard(spriteManager.getBlackPiece(), board); 
+}
+
+
+void GameManager::drawBoardStateToScreen(ALLEGRO_BITMAP* target) {
+    ALLEGRO_BITMAP* prev = al_get_target_bitmap(); 
+    al_set_target_bitmap(target); 
+    
+    al_clear_to_color(al_map_rgba_f(255, 255, 255, 1)); 
+    al_draw_bitmap(spriteManager.getGameBoard(), 0, 0, 0);  
+    SpriteManager::drawSpriteOnBoard(spriteManager.getBlackPiece(), board.getBlackPieces());  
+    SpriteManager::drawSpriteOnBoard(spriteManager.getLightPiece(), board.getLightPieces()); 
+
+    al_set_target_bitmap(prev); 
+}
 
 
 // get the event queue 

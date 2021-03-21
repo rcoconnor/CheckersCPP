@@ -4,19 +4,35 @@
 
 
 Gameboard::Gameboard() {
-    redPieces =   0x000000000055aa55;  
-    blackPieces = 0xaa55aa0000000000;  
+    blackPieces = 0x000000000055aa55;  
+    lightPieces = 0xaa55aa0000000000;  
 }
 
-uint64_t Gameboard::getRedPieces() {
-    return redPieces.getBoard(); 
+uint64_t Gameboard::getLightPieces() {
+    return lightPieces.getBoard(); 
 }
 
+uint64_t Gameboard::getBlackPieces() {
+    return blackPieces.getBoard(); 
+}
+
+
+uint64_t Gameboard::ComputePieceValidMoves(uint64_t pieceLocation, uint64_t ownSide){
+    std::cout << "Gameboard::ComputePieceValidMoves called" << std::endl;  
+    uint64_t clipFileH = pieceLocation & Bitboard::ClearFile[FILE_H];
+    uint64_t clipFileA = pieceLocation & Bitboard::ClearFile[FILE_A]; 
+    
+    uint64_t spotLeft = clipFileA << 7; 
+    uint64_t spotRight = clipFileH << 9; 
+
+    uint64_t validMoves = spotLeft | spotRight; 
+    return validMoves; 
+}; 
 
 
 /* static helper function, prints the board*/ 
 void Gameboard::printBoard() {
-    uint64_t tempBoard = this->redPieces.getBoard() | this->blackPieces.getBoard();   
+    uint64_t tempBoard = this->lightPieces.getBoard() | this->blackPieces.getBoard();   
     uint64_t shift = tempBoard << 1;  
     std::cout << "temp : " << std::setfill('0') << std::setw(64) << std::bitset<64>( tempBoard ) << std::endl;  
     std::cout << "shift: " << std::setfill('0') << std::setw(64) << std::bitset<64>( shift ) << std::endl;  

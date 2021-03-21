@@ -30,7 +30,7 @@ public:
     ALLEGRO_BITMAP* getDarkSquare(); 
     ALLEGRO_BITMAP* getLightSquare();
     
-    ALLEGRO_BITMAP* getDarkPiece(); 
+    ALLEGRO_BITMAP* getBlackPiece(); 
     ALLEGRO_BITMAP* getLightPiece(); 
 
     static int SQUARE_HEIGHT; 

@@ -45,17 +45,20 @@ void SpriteManager::init() {
             load_section_of_bmp(
                 pieces, 
                 0,
-                0, 
+                32, 
                 32, 
                 32),
             64, 
-            64);  
+            64); 
+    lightPiece = load_bitmap_at_size(load_section_of_bmp(pieces, 32, 32, 32, 32), 64, 64); 
+    al_convert_mask_to_alpha(darkPiece, al_map_rgb(255, 0, 255));
+    al_convert_mask_to_alpha(lightPiece, al_map_rgb(255, 0, 255)); 
 }
 
 /* draws the sprites in the positions given by board_state to the current target */ 
 void SpriteManager::drawSpriteOnBoard(ALLEGRO_BITMAP* sprite, uint64_t board_state) {
     for (int i = 7; i >= 0; i--) {
-        for (int j = 7; j >= 0; j--) {
+        for (int j = 0; j < 8; j++) {
             uint64_t firstDigit = board_state & 1;  
             if ( firstDigit == 1 ) {
                 al_draw_bitmap(sprite, 
@@ -111,7 +114,7 @@ ALLEGRO_BITMAP*  SpriteManager::getPiece() {
     return pieces; 
 }
 
-ALLEGRO_BITMAP* SpriteManager::getDarkPiece() {
+ALLEGRO_BITMAP* SpriteManager::getBlackPiece() {
     return darkPiece; 
 }
 
@@ -133,7 +136,7 @@ ALLEGRO_BITMAP* create_game_board(ALLEGRO_BITMAP *dark, ALLEGRO_BITMAP *light) {
     
     // Draw the sprite to the bitmap
     SpriteManager::drawSpriteOnBoard(light, Bitboard::LIGHT_SQUARES); 
-    SpriteManager::drawSpriteOnBoard(dark, Bitboard::RED_SQUARES); 
+    SpriteManager::drawSpriteOnBoard(dark, Bitboard::DARK_SQUARES); 
    
     // set the target to the previous one and return the bitmap
     al_set_target_bitmap(prev); 
