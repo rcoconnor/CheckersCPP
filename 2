@@ -17,32 +17,23 @@ GameManager::~GameManager() {
 }
 
 
-// FIXME: there are multiple memory leaks which will have to be cleaned up 
+
 void GameManager::createBoard() {
-    Entity* board = new Entity(); 
     uint64_t darkSquares = Bitboard::DARK_SQUARES;  
     for (int i = 7; i >= 0; i--) {
         for (int j = 0; j < 8; j++) {
             uint64_t firstDigit = darkSquares & 1; 
             if (firstDigit == 1) {
+                Entity* boardSquare = new Entity();     
                 Sprite* theSprite = new Sprite(spriteManager.getDarkSquare(), 
                         j * SpriteManager::SQUARE_HEIGHT, 
                         i * SpriteManager::SQUARE_HEIGHT, 
-                        SpriteManager::SQUARE_HEIGHT, 
-                        SpriteManager::SQUARE_HEIGHT);
-                board->addComponent(theSprite);
-            } else {
-                Sprite* theSprite = new Sprite(spriteManager.getLightSquare(), 
-                        j * SpriteManager::SQUARE_HEIGHT, 
-                        i * SpriteManager::SQUARE_HEIGHT, 
-                        SpriteManager::SQUARE_HEIGHT, 
-                        SpriteManager::SQUARE_HEIGHT);
-                board->addComponent(theSprite);
+                        SpriteMa);
+                boardSquare->addComponent(theSprite);
+                entities.push_back(boardSquare); 
             }
-            darkSquares = darkSquares >> 1; 
         }
     }
-    entities.push_back(board); 
 }
 
 
@@ -70,11 +61,11 @@ void GameManager::init() {
     //board.printBoard();
     //std::cout << "--------init done--------" << std::endl; 
     //boardSquare = Entity();
-    //Entity* boardSquare = new Entity();     
-    //Sprite* theSprite = new Sprite(spriteManager.getDarkSquare());
-    //boardSquare->addComponent(theSprite);
-    //entities.push_back(boardSquare); 
-    createBoard(); 
+    Entity* boardSquare = new Entity();     
+    Sprite* theSprite = new Sprite(spriteManager.getDarkSquare());
+    boardSquare->addComponent(theSprite);
+    entities.push_back(boardSquare); 
+
 } 
 
 void GameManager::updateGame() {

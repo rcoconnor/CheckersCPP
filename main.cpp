@@ -6,7 +6,7 @@
 //using namespace std; 
 
 int main(int argc, char** argv) {
-    //std::cout << "creating game manager" << std::endl; 
+    std::cout << "creating game manager" << std::endl; 
     GameManager manager = GameManager();
     manager.init(); 
     

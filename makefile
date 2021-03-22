@@ -1,22 +1,50 @@
 
+# 
+# 'make depend' uses makedepend to automatically generate dependencies 
+#               (dependencies are added to end of Makefile) 
+# 'make' 		build executable file 'checkers'
+# 'make clean'  removes all .o and executable files
 
-checkers: main.o Bitboard.o SpriteManager.o Gameboard.o GameManager.o 
-	g++ main.o Bitboard.o GameBoard.o GameManager.o SpriteManager.o -Wall -o checkers -lallegro -lallegro_main -lallegro_image -lallegro_font -lallegro_ttf
+# define the compiler to use
+CC=g++ 
 
-main.o: main.cpp Bitboard.o Gameboard.o SpriteManager.o GameManager.o 
-	g++ main.cpp -Wall -c 
+CFLAGS = -Wall
 
-GameManager.o: GameManager.cpp GameManager.h  GameBoard.o SpriteManager.o 
-	g++ GameManager.cpp -Wall -c 
+LIBS = -lallegro -lallegro_main -lallegro_image -lallegro_font -lallegro_ttf
 
-Gameboard.o: Gameboard.cpp Gameboard.h Bitboard.o
-	g++ GameBoard.cpp -Wall -c 	
+SRCS = main.cpp GameManager.cpp Gameboard.cpp SpriteManager.cpp Bitboard.cpp Entity.cpp Component.cpp Sprite.cpp 
+OBJS = GameManager.o Gameboard.o SpriteManager.o Bitboard.o Entity.o Component.o Sprite.o 
+MAIN = checkers
 
-SpriteManager.o: SpriteManager.cpp SpriteManager.h Bitboard.o
-	g++ SpriteManager.cpp -Wall -c 
+checkers: main.o GameManager.o Gameboard.o SpriteManager.o Bitboard.o
+	$(CC) $(CFLAGS) main.o $(OBJS) -o $(MAIN) $(LIBS) 
 
-Bitboard.o: Bitboard.cpp Bitboard.h
-	g++ Bitboard.cpp -Wall -c 
+main.o: main.cpp $(OBJS)
+	$(CC) $(CFLAGS) -c main.cpp 
+
+GameManager.o: GameManager.h GameManager.cpp Entity.o Gameboard.o SpriteManager.o Sprite.o 
+	$(CC) $(CFLAGS) -c GameManager.cpp 
+
+Entity.o: Entity.h Entity.cpp Component.o 
+	$(CC) $(CFLAGS) -c Entity.cpp 
+
+Component.o: Component.h Component.cpp
+	$(CC) $(CFLAGS) -c Component.cpp
+
+Sprite.o: Component.o Sprite.cpp Sprite.h  
+	$(CC) $(CFLAGS) -c Sprite.cpp
+
+Gameboard.o: Gameboard.h Gameboard.cpp Bitboard.o
+	$(CC) $(CFLAGS) -c Gameboard.cpp 
+
+Bitboard.o: Bitboard.h Bitboard.cpp 
+	$(CC) $(CFLAGS) -c Bitboard.cpp
+
+SpriteManager.o: SpriteManager.h SpriteManager.cpp 
+	$(CC) $(CFLAGS) -c SpriteManager.cpp
 
 clean: 
-	$(RM) checkers *.o
+	$(RM) *.o $(MAIN) 
+
+
+# DO NOT DELETE THIS LINE -- makedepend needs it 
