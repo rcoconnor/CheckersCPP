@@ -12,19 +12,22 @@
 #include "SpriteManager.h"
 #include "Entity.h"
 #include "Sprite.h"
+#include "Board.h"
 
 class GameManager {
     private: 
         //Entity boardSquare; 
         std::vector<Entity*> entities; 
         
-        Gameboard board; 
+        Gameboard gameboard; 
         ALLEGRO_DISPLAY * display;  
         ALLEGRO_EVENT_QUEUE * queue;
         ALLEGRO_TIMER* timer;  
         ALLEGRO_BITMAP* buffer; 
         SpriteManager spriteManager;
         void drawBitboardToScreen(uint64_t board); 
+
+        Board* boardOnScreen; 
         
     public: 
         GameManager();
@@ -38,7 +41,8 @@ class GameManager {
         void drawBoardStateToScreen(ALLEGRO_BITMAP* target);
 
         void createBoard();
-
+        Entity* createGameSquare(ALLEGRO_BITMAP* bmp, int x, int y, int w);
+        void placePieces(uint64_t darkPieces, uint64_t lightPieces); 
 
         static int WINDOW_WIDTH;
         static int WINDOW_HEIGHT;

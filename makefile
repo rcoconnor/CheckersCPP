@@ -12,8 +12,8 @@ CFLAGS = -Wall
 
 LIBS = -lallegro -lallegro_main -lallegro_image -lallegro_font -lallegro_ttf
 
-SRCS = main.cpp GameManager.cpp Gameboard.cpp SpriteManager.cpp Bitboard.cpp Entity.cpp Component.cpp Sprite.cpp 
-OBJS = GameManager.o Gameboard.o SpriteManager.o Bitboard.o Entity.o Component.o Sprite.o 
+SRCS = main.cpp GameManager.cpp Gameboard.cpp SpriteManager.cpp Bitboard.cpp Entity.cpp Component.cpp Sprite.cpp Board.cpp BoardSquare.cpp Piece.cpp 
+OBJS = GameManager.o Gameboard.o SpriteManager.o Bitboard.o Entity.o Component.o Sprite.o Board.o BoardSquare.o Piece.o 
 MAIN = checkers
 
 checkers: main.o GameManager.o Gameboard.o SpriteManager.o Bitboard.o
@@ -22,8 +22,17 @@ checkers: main.o GameManager.o Gameboard.o SpriteManager.o Bitboard.o
 main.o: main.cpp $(OBJS)
 	$(CC) $(CFLAGS) -c main.cpp 
 
-GameManager.o: GameManager.h GameManager.cpp Entity.o Gameboard.o SpriteManager.o Sprite.o 
+GameManager.o: GameManager.h GameManager.cpp Entity.o Gameboard.o SpriteManager.o Sprite.o Board.o Piece.o 
 	$(CC) $(CFLAGS) -c GameManager.cpp 
+
+Piece.o: Piece.h Piece.cpp Entity.o
+	$(CC) $(CFLAGS) -c Piece.cpp 
+
+Board.o: Board.h Board.cpp Entity.o BoardSquare.o
+	$(CC) $(CFLAGS) -c Board.cpp
+
+BoardSquare.o: BoardSquare.h BoardSquare.cpp Entity.o
+	$(CC) $(CFLAGS) -c BoardSquare.cpp
 
 Entity.o: Entity.h Entity.cpp Component.o 
 	$(CC) $(CFLAGS) -c Entity.cpp 
