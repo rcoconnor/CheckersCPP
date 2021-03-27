@@ -22,16 +22,22 @@ Entity::~Entity() {
     child = NULL; 
 }
 
-void Entity::update() {
+void Entity::update(ALLEGRO_EVENT* event) {
     //std::cout << "standard update called" << std::endl; 
     for (int i = 0; i < components.size(); i++) {
-        components.at(i)->update();  
+        components.at(i)->update(event);  
     }
 }
 
 
 void Entity::addComponent(Component* newComponent) {
     components.push_back(newComponent); 
+}
+
+
+void Entity::setNewPos(int x, int y){
+    xPos = x; 
+    yPos = y; 
 }
 
 float Entity::getX() {

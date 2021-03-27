@@ -1,6 +1,8 @@
 #include "GameManager.h"
 #include <iomanip>
 #include "Piece.h"
+
+
 /** constructor */ 
 GameManager::GameManager() {
     //std::cout << "creating board " << std::endl;  
@@ -13,6 +15,7 @@ GameManager::~GameManager() {
     al_destroy_timer(timer); 
     al_destroy_display(display);
     al_uninstall_keyboard();
+    al_uninstall_mouse(); 
     al_destroy_bitmap(buffer); 
 }
 
@@ -32,11 +35,6 @@ void GameManager::placePieces(uint64_t darkPieces, uint64_t lightPieces) {
             darkPieces = darkPieces >> 1; 
         } 
     }
-
-    //Piece* piece = new Piece(spriteManager.getBlackPiece(), 0, 0, 64, 64);      
-    //createGameSquare(spriteManager.getBlackPiece(), 0, 0); 
-    
-    //entities.push_back(piece);
 }
 
 
@@ -69,20 +67,10 @@ void GameManager::init() {
     al_register_event_source(queue, al_get_display_event_source(display)); 
     al_register_event_source(queue, al_get_timer_event_source(timer)); 
     al_register_event_source(queue, al_get_mouse_event_source()); 
-    
-
 
     createBoard(); 
     placePieces(gameboard.getBlackPieces(), gameboard.getLightPieces()); 
-
-
 } 
-
-void GameManager::updateGame() {
-    for (int i = 0; i < entities.size(); i++) {
-        entities.at(i)->update(); 
-    }
-}
 
 
 // start a game of checkers  
@@ -91,20 +79,30 @@ void GameManager::startGame(){
     al_start_timer(timer);
     al_clear_to_color(al_map_rgb(0, 0, 0));  
 
-    updateGame();
-    al_flip_display();
+    //updateGame();
+    //al_flip_display();
     while (running) {
         ALLEGRO_EVENT event; 
         al_wait_for_event(queue, &event);
+        updateGame(&event); 
         if (event.type == ALLEGRO_EVENT_TIMER) {
-            updateGame();
+            //std::cout << "val: " << ALLEGRO_EVENT_MOUSE_BUTTON_DOWN << std::endl; 
+            //updateGame(&event);
             al_flip_display();
-        } 
+        }
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             running = false; 
-        }
-    }
+        } 
+    } 
 }; 
+
+
+void GameManager::updateGame(ALLEGRO_EVENT* event) {
+    for (int i = 0; i < entities.size(); i++) {
+        entities.at(i)->update(event); 
+    }
+}
+
 
 // Debug function to allow visualizing of bitboards
 // prints a bitboard to the screen 

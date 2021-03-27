@@ -3,7 +3,7 @@
 
 #include "Component.h"
 #include <vector>
-
+#include <allegro5/allegro.h>
 
 class Entity {
     public: 
@@ -12,10 +12,11 @@ class Entity {
         ~Entity(); 
        
         // valled every frame
-        virtual void update();
+        virtual void update(ALLEGRO_EVENT* event);
         // called at startup
         void init(); 
-
+        
+        void setNewPos(int x, int y); 
         void addComponent(Component* newComponent); 
         float getX(); 
         float getY(); 

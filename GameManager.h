@@ -28,7 +28,7 @@ class GameManager {
         void drawBitboardToScreen(uint64_t board); 
 
         Board* boardOnScreen; 
-        
+        //Piece* PiecesOnScreen;
     public: 
         GameManager();
         ~GameManager(); 
@@ -37,7 +37,7 @@ class GameManager {
         void startGame();  
         ALLEGRO_EVENT_QUEUE* getQueue(); 
         //void drawBitmapToBoard(ALLEGRO_BITMAP* bmp, uint64_t board); 
-        void updateGame(); 
+        void updateGame(ALLEGRO_EVENT* event); 
         void drawBoardStateToScreen(ALLEGRO_BITMAP* target);
 
         void createBoard();

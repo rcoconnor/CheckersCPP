@@ -8,7 +8,7 @@
 class Board: public Entity {
     public: 
         Board(ALLEGRO_BITMAP* light, ALLEGRO_BITMAP* dark);
-        void update(); 
+        void update(ALLEGRO_EVENT* event); 
     protected:  
         BoardSquare** squares; 
      

@@ -17,7 +17,7 @@ std::string Component::getType() {
     return type; 
 }
 
-void Component::update() {
+void Component::update(ALLEGRO_EVENT* event) {
     std::cout << "Component.render() not implemented yet" << std::endl; 
 } 
 

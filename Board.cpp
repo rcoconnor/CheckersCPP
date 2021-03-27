@@ -26,10 +26,10 @@ Board::Board(ALLEGRO_BITMAP* light, ALLEGRO_BITMAP* dark) {
 }
 
 
-void Board::update() {
+void Board::update(ALLEGRO_EVENT* event) {
     //std::cout << "update board called" << std::endl;
     for (int i = 0; i < 64; i++) {
-        squares[i]->update(); 
+        squares[i]->update(event); 
     }
 }
 

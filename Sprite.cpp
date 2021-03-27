@@ -28,7 +28,12 @@ std::string Sprite::getType() {
     return type; 
 }
 
-void Sprite::update() {
+void Sprite::setNewPos(int x, int y) {
+    xPos = x; 
+    yPos = y; 
+}
+
+void Sprite::update(ALLEGRO_EVENT* event) {
     al_draw_bitmap(sprite, xPos, yPos, 0); 
 }
 

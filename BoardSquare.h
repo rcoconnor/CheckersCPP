@@ -3,11 +3,12 @@
 
 #include "Entity.h"
 #include <allegro5/allegro.h>
+
 class BoardSquare: public Entity{
     public: 
         BoardSquare();
         BoardSquare(ALLEGRO_BITMAP* bmp, int x, int y, int w, int h); 
-        void update();  
+        void update(ALLEGRO_EVENT* event);  
                 
 }; 
 
